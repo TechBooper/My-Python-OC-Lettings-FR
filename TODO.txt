@@ -1,0 +1,13 @@
+Docker -mono conteneur et image
+
+run python prog simple dockerisé
+
+Run pipeline ci/cd
+
+lune thorium sc2czkq9370 : http://sc2czkq9370.universe.wf/
+
+page de login :
+https://thorium.o2switch.net:2083/cpsess5964537123/frontend/o2switch/o2switch-multiple-accounts/index.live.php?action=connect&account=sc2czkq9370
+
+login: sc2czkq9370
+mdp : rgB65ajAi#$5&Yoi
