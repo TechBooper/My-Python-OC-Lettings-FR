@@ -1,20 +1,32 @@
-# 1) Choose a base image
 FROM python:3.8-slim
 
-# 2) Set a working directory within the container
+# Set build-time arguments for Django settings
+ARG DEBUG=False
+ARG ALLOWED_HOSTS
+ARG SECRET_KEY
+ARG DB_CREDENTIALS
+
+# Make a working directory
 WORKDIR /usr/src/app
 
-# 3) Copy and install dependencies
-#    Copy only requirements first so Docker can cache pip installs if nothing changed
+# Copy only requirements first (for caching layers)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 4) Copy the entire project into the container
+# Copy the full project
 COPY . .
 
-# 5) Expose the port Django will run on
+# Expose the Django port (optional; mainly for documentation)
 EXPOSE 8000
 
-# 6) Command to run the development server (for testing only)
-#    For production, consider using gunicorn or uwsgi + reverse proxy (e.g., Nginx).
+# Convert build args to environment variables in the final image
+ENV DEBUG=${DEBUG}
+ENV ALLOWED_HOSTS=${ALLOWED_HOSTS}
+ENV SECRET_KEY=${SECRET_KEY}
+ENV DB_CREDENTIALS=${DB_CREDENTIALS}
+
+# Collect static files so they're bundled in the final image
+RUN python manage.py collectstatic --noinput
+
+# For production, consider using gunicorn or uwsgi. For now, runserver is shown:
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

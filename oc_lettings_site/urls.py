@@ -9,11 +9,13 @@ It includes:
 """
 
 from django.contrib import admin
+from django.http import HttpResponse
 from . import views
 from django.urls import path, include
 
 def trigger_error(request):
-    division_by_zero = 1 / 0
+    division_by_zero = 1 / 0  # This will raise a ZeroDivisionError
+    return HttpResponse("This will never be reached")
 
 #: A list of URL pattern definitions for the entire project.
 urlpatterns = [
@@ -30,6 +32,5 @@ urlpatterns = [
     
     # Routes to the Django admin interface.
     path("admin/", admin.site.urls),
-    
-    path('sentry-debug/', trigger_error),
+    path("trigger-error/", trigger_error, name="trigger_error"),  # New path for error trigger
 ]
