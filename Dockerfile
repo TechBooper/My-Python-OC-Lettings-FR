@@ -29,4 +29,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 8000
 
 # Start Gunicorn and Nginx with a process manager
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:8000 myproject.wsgi:application & nginx -g 'daemon off;'"]
+CMD service nginx start && gunicorn --bind 0.0.0.0:8000 oc_lettings_site.wsgi:application
+
