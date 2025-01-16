@@ -58,9 +58,9 @@ jobs:
       - name: Deploy to Droplet via SSH
         uses: appleboy/ssh-action@v0.1.7
         with:
-          host: ${{ secrets.DROPLET_IP }}
+          host: ${{ secrets.DOCKER_DROPLET_IP }}
           username: root
-          key: ${{ secrets.DROPLET_SSH_KEY }}
+          key: ${{ secrets.DOCKER_DROPLET_SSH_KEY}}
           script: |
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker pull ${{ secrets.DOCKER_USERNAME }}/myapp:latest
