@@ -1,32 +1,32 @@
+# Use a lightweight Python image
 FROM python:3.8-slim
 
-# Set build-time arguments for Django settings
-ARG DEBUG=False
-ARG ALLOWED_HOSTS
-ARG SECRET_KEY
-ARG DB_CREDENTIALS
+# Install system dependencies
+RUN apt-get update && apt-get install -y nginx libpq-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Make a working directory
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Create and set the working directory
 WORKDIR /usr/src/app
 
-# Copy only requirements first (for caching layers)
+# Copy and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the full project
+# Copy the project files
 COPY . .
 
-# Expose the Django port (optional; mainly for documentation)
-EXPOSE 8000
-
-# Convert build args to environment variables in the final image
-ENV DEBUG=${DEBUG}
-ENV ALLOWED_HOSTS=${ALLOWED_HOSTS}
-ENV SECRET_KEY=${SECRET_KEY}
-ENV DB_CREDENTIALS=${DB_CREDENTIALS}
-
-# Collect static files so they're bundled in the final image
+# Collect static files (can be adjusted if you use a storage backend like S3)
 RUN python manage.py collectstatic --noinput
 
-# For production, consider using gunicorn or uwsgi. For now, runserver is shown:
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Configure Nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose the Gunicorn port
+EXPOSE 8000
+
+# Start Gunicorn and Nginx with a process manager
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:8000 myproject.wsgi:application & nginx -g 'daemon off;'"]
