@@ -67,5 +67,5 @@ jobs:
             docker stop myapp_container || true
             docker rm myapp_container || true
             
-            # Run the new container on port 8001
-            docker run -d -p 8001:8000 --name myapp_container ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+            # Run the new container on port 8000
+            docker run -d -p 8000:8000 --name myapp_container ${{ secrets.DOCKER_USERNAME }}/myapp:latest
