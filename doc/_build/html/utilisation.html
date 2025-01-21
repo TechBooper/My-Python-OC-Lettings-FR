@@ -38,12 +38,12 @@
 <section id="execution-en-local-sans-docker">
 <h2>Exécution en local (sans Docker)<a class="headerlink" href="#execution-en-local-sans-docker" title="Link to this heading">¶</a></h2>
 <ol class="arabic">
-<li><p>Démarrez le serveur Django :</p>
+<li><p>Démarrez le serveur Django</p>
 <p>python manage.py runserver</p>
 </li>
-<li><p>Ouvrez votre navigateur à l’adresse :
+<li><p>Ouvrez votre navigateur à l’adresse :
 <a class="reference external" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></p></li>
-<li><p>(Optionnel) Créez un utilisateur admin :</p>
+<li><p>(Optionnel) Créez un utilisateur admin</p>
 <p>python manage.py createsuperuser</p>
 </li>
 </ol>
@@ -51,14 +51,14 @@
 <section id="execution-avec-docker">
 <h2>Exécution avec Docker<a class="headerlink" href="#execution-avec-docker" title="Link to this heading">¶</a></h2>
 <ol class="arabic">
-<li><p><strong>Construire l’image Docker</strong></p>
+<li><p>Construire l’image Docker</p>
 <p>docker build -t myapp:latest .</p>
 </li>
-<li><p><strong>Lancer le conteneur</strong> sur le port 80 (si libre) :</p>
+<li><p>Lancer le conteneur sur le port 80</p>
 <p>docker run -d -p 80:80 –name myapp myapp:latest</p>
 </li>
 <li><p>Rendez-vous sur <a class="reference external" href="http://localhost/">http://localhost/</a> pour vérifier l’application.</p></li>
-<li><p><strong>Logs</strong> :</p>
+<li><p>Voir les logs</p>
 <p>docker logs myapp</p>
 </li>
 </ol>

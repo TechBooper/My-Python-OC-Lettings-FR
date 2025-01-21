@@ -37,17 +37,16 @@
 <section id="apercu">
 <h2>Aperçu<a class="headerlink" href="#apercu" title="Link to this heading">¶</a></h2>
 <p>Le projet est conçu pour être déployé via <strong>Docker</strong> et <strong>Nginx</strong>, avec
-<strong>Gunicorn</strong> comme serveur d’applications Python. L’architecture se
-compose généralement de :</p>
+<strong>Gunicorn</strong> comme serveur d’applications Python.</p>
 <ul class="simple">
-<li><p>Un conteneur Django/Gunicorn (<code class="docutils literal notranslate"><span class="pre">myapp</span></code>),</p></li>
-<li><p>Un conteneur Nginx servant de proxy inversé vers Gunicorn,</p></li>
-<li><p>Des configurations (ex. <code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code>, <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>) pour automatiser le tout.</p></li>
+<li><p>Conteneur Django/Gunicorn (<code class="docutils literal notranslate"><span class="pre">myapp</span></code>)</p></li>
+<li><p>Conteneur Nginx servant de proxy inversé</p></li>
+<li><p>Fichiers de configuration (<code class="docutils literal notranslate"><span class="pre">nginx.conf</span></code>, <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>)</p></li>
 </ul>
 </section>
-<section id="exemple-d-utilisation-avec-docker-compose">
-<h2>Exemple d’utilisation avec Docker Compose<a class="headerlink" href="#exemple-d-utilisation-avec-docker-compose" title="Link to this heading">¶</a></h2>
-<p>Vous pouvez créer un fichier <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> semblable à</p>
+<section id="exemple-avec-docker-compose">
+<h2>Exemple avec Docker Compose<a class="headerlink" href="#exemple-avec-docker-compose" title="Link to this heading">¶</a></h2>
+<p>Un exemple de <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> pourrait ressembler à</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">version</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span>
 <span class="n">services</span><span class="p">:</span>
   <span class="n">web</span><span class="p">:</span>
@@ -61,20 +60,20 @@ compose généralement de :</p>
     <span class="n">restart</span><span class="p">:</span> <span class="n">always</span>
 </pre></div>
 </div>
-<p>Ensuite :</p>
+<p>Puis exécutez</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span>
 </pre></div>
 </div>
-<p>et votre application sera accessible sur <a class="reference external" href="http:/">http:/</a>/&lt;votre-serveur&gt;:80/.</p>
+<p>Votre application sera alors accessible à l’adresse <a class="reference external" href="http:/">http:/</a>/&lt;votre-serveur&gt;:80/.</p>
 </section>
 <section id="ci-cd">
 <h2>CI/CD<a class="headerlink" href="#ci-cd" title="Link to this heading">¶</a></h2>
-<p>Vous pouvez mettre en place un pipeline <strong>GitHub Actions</strong> qui :</p>
+<p>Vous pouvez mettre en place un pipeline (ex. GitHub Actions) qui :</p>
 <ol class="arabic simple">
-<li><p>Construit l’image Docker,</p></li>
-<li><p>Lance les tests (pytest, coverage, etc.),</p></li>
-<li><p>Push l’image sur un registre (Docker Hub par ex.),</p></li>
-<li><p>Déploie automatiquement sur le serveur cible (via SSH ou autre).</p></li>
+<li><p>Construit l’image Docker</p></li>
+<li><p>Lance les tests (pytest, coverage, etc.)</p></li>
+<li><p>Pousse l’image sur Docker Hub</p></li>
+<li><p>Déploie automatiquement sur le serveur cible via SSH ou autre méthode.</p></li>
 </ol>
 </section>
 </section>
@@ -112,7 +111,7 @@ compose généralement de :</p>
 <li class="toctree-l1"><a class="reference internal" href="utilisation.html">Utilisation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Déploiement</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#apercu">Aperçu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exemple-d-utilisation-avec-docker-compose">Exemple d’utilisation avec Docker Compose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exemple-avec-docker-compose">Exemple avec Docker Compose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ci-cd">CI/CD</a></li>
 </ul>
 </li>

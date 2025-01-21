@@ -1,10 +1,15 @@
-.. oc_lettings_site_doc documentation master file, created by
-   sphinx-quickstart on Fri Jan 10 18:32:44 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. My-Python-OC-Lettings-FR documentation master file
 
-Welcome to oc_lettings_site_doc's documentation!
-================================================
+======================================================
+Documentation du projet My-Python-OC-Lettings-FR
+======================================================
+
+Bienvenue dans la documentation du projet **My-Python-OC-Lettings-FR**.
+Ce projet est basé sur **Django** (Python 3.8), utilise **Docker** et
+le trio **Nginx + Gunicorn** pour le déploiement.
+
+Sommaire
+========
 
 .. toctree::
    :maxdepth: 2
@@ -15,10 +20,8 @@ Welcome to oc_lettings_site_doc's documentation!
    utilisation
    deploiement
 
-
-
-Indices and tables
-==================
+Indices et tables
+=================
 
 * :ref:`genindex`
 * :ref:`modindex`

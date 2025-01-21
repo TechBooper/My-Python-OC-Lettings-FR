@@ -38,25 +38,29 @@
 <section id="prerequis">
 <h2>Prérequis<a class="headerlink" href="#prerequis" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><strong>Python 3.8</strong> ou version supérieure (recommandé si vous exécutez le projet localement).</p></li>
-<li><p><strong>Docker</strong> et <strong>docker-compose</strong> installés sur votre machine.</p></li>
+<li><p><strong>Python 3.8</strong> ou version supérieure (recommandé si vous exécutez localement).</p></li>
+<li><p><strong>Docker</strong> et <strong>docker-compose</strong> (si vous utilisez la version Docker).</p></li>
 <li><p><strong>Git</strong> pour cloner le projet (optionnel).</p></li>
 </ul>
 </section>
 <section id="etapes-d-installation">
 <h2>Étapes d’installation<a class="headerlink" href="#etapes-d-installation" title="Link to this heading">¶</a></h2>
 <ol class="arabic">
-<li><p><strong>Cloner le dépôt</strong> (facultatif si vous avez déjà les fichiers) :</p>
+<li><p>Cloner le dépôt (facultatif si vous avez déjà les fichiers)</p>
 <p>git clone <a class="reference external" href="https://github.com/votre-utilisateur/My-Python-OC-Lettings-FR.git">https://github.com/votre-utilisateur/My-Python-OC-Lettings-FR.git</a>
 cd My-Python-OC-Lettings-FR</p>
 </li>
-<li><p><strong>Installer les dépendances</strong> si vous exécutez localement sans Docker :</p>
+<li><p>Installer les dépendances si vous exécutez localement, sans Docker</p>
 <p>pip install -r requirements.txt</p>
 </li>
-<li><p><strong>Configurer le fichier .env</strong> (optionnel)
-Vous pouvez définir des variables d’environnement (comme <cite>SECRET_KEY</cite>,
-<cite>DEBUG</cite>, etc.).</p></li>
-<li><p><strong>(Optionnel) Créer la base de données</strong> si vous lancez en local :</p>
+<li><p>Configurer le fichier .env (optionnel)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exemples de variables d&#39;environnement</span>
+</pre></div>
+</div>
+<p>SECRET_KEY=changeme
+DEBUG=True</p>
+</li>
+<li><p>(Optionnel) Créer la base de données si vous lancez en local</p>
 <p>python manage.py migrate</p>
 </li>
 </ol>

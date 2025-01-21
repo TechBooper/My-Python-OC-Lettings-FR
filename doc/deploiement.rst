@@ -5,17 +5,16 @@ Aperçu
 ------
 
 Le projet est conçu pour être déployé via **Docker** et **Nginx**, avec
-**Gunicorn** comme serveur d'applications Python. L'architecture se
-compose généralement de :
+**Gunicorn** comme serveur d'applications Python.
 
-- Un conteneur Django/Gunicorn (``myapp``),
-- Un conteneur Nginx servant de proxy inversé vers Gunicorn,
-- Des configurations (ex. ``nginx.conf``, ``Dockerfile``) pour automatiser le tout.
+- Conteneur Django/Gunicorn (``myapp``)
+- Conteneur Nginx servant de proxy inversé
+- Fichiers de configuration (``nginx.conf``, ``Dockerfile``)
 
-Exemple d'utilisation avec Docker Compose
------------------------------------------
+Exemple avec Docker Compose
+---------------------------
 
-Vous pouvez créer un fichier ``docker-compose.yml`` semblable à ::
+Un exemple de ``docker-compose.yml`` pourrait ressembler à ::
 
   version: "3"
   services:
@@ -29,19 +28,18 @@ Vous pouvez créer un fichier ``docker-compose.yml`` semblable à ::
         - DEBUG=0
       restart: always
 
-Ensuite ::
+Puis exécutez ::
 
   docker-compose up -d
 
-et votre application sera accessible sur http://<votre-serveur>:80/.
+Votre application sera alors accessible à l'adresse http://<votre-serveur>:80/.
 
 CI/CD
 -----
 
-Vous pouvez mettre en place un pipeline **GitHub Actions** qui :
+Vous pouvez mettre en place un pipeline (ex. GitHub Actions) qui :
 
-1. Construit l'image Docker,
-2. Lance les tests (pytest, coverage, etc.),
-3. Push l'image sur un registre (Docker Hub par ex.),
-4. Déploie automatiquement sur le serveur cible (via SSH ou autre).
-
+1. Construit l'image Docker
+2. Lance les tests (pytest, coverage, etc.)
+3. Pousse l'image sur Docker Hub
+4. Déploie automatiquement sur le serveur cible via SSH ou autre méthode.

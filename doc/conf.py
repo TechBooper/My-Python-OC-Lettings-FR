@@ -23,7 +23,11 @@ extensions = [
 autosummary_generate = True  # To let Sphinx generate stubs
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["venv/*",
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    ]
 
 
 
