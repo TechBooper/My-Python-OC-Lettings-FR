@@ -1,13 +1,16 @@
 version: 2
 
+# Build configuration for the documentation
 build:
-  os: ubuntu-22.04
+  os: ubuntu-22.04  # Specifies the OS environment for building the docs
   tools:
-    python: "3.8"
+    python: "3.8"  # Python version to be used during the build process
 
+# Sphinx configuration
 sphinx:
-  configuration: doc/conf.py
+  configuration: doc/conf.py  # Path to the Sphinx configuration file (conf.py)
 
+# Python dependencies installation
 python:
   install:
-    - requirements: requirements.txt
+    - requirements: requirements.txt  # Specifies the file containing Python dependencies

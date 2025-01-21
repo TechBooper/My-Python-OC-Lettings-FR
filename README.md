@@ -1,77 +1,165 @@
-## Résumé
+# **Orange County Lettings**
 
-Site web d'Orange County Lettings
+## **Résumé**
+Site web pour la gestion des locations et profils dans le comté d'Orange. Ce projet utilise Django comme base et a été amélioré avec des outils modernes pour une gestion efficace et un déploiement automatisé.
 
-## Développement local
+---
 
-### Prérequis
+## **Fonctionnalités**
+- Gestion des profils et des locations.
+- Déploiement automatisé via GitHub Actions.
+- Conteneurisation avec Docker.
+- Documentation hébergée sur Read the Docs.
+- Utilisation de Gunicorn comme serveur WSGI.
+- Proxy inversé et gestion des requêtes avec Nginx.
 
-- Compte GitHub avec accès en lecture à ce repository
-- Git CLI
-- SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
+---
 
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+## **Développement local**
 
-### macOS / Linux
+### **Prérequis**
+- **Python**: Version 3.8 ou supérieure.
+- **Git**: Pour cloner le dépôt.
+- **Docker**: Pour construire et exécuter les conteneurs.
+- **SQLite**: Préinstallé sur la plupart des systèmes pour la base de données locale.
 
-#### Cloner le repository
+### **Installation et Exécution**
 
-- `cd /path/to/put/project/in`
-- `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
+#### **Cloner le repository**
+```bash
+git clone https://github.com/Your-Username/Your-Repository.git
+cd Your-Repository
+```
 
-#### Créer l'environnement virtuel
+#### **Créer un environnement virtuel**
+```bash
+python -m venv venv
+source venv/bin/activate  # macOS/Linux
+.\venv\Scripts\Activate.ps1  # Windows
+pip install -r requirements.txt
+```
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `python -m venv venv`
-- `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
-- Activer l'environnement `source venv/bin/activate`
-- Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
-`which python`
-- Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
-- Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
-- Pour désactiver l'environnement, `deactivate`
+#### **Exécuter l'application localement**
+```bash
+python manage.py runserver
+```
+Accédez au site via `http://localhost:8000`.
 
-#### Exécuter le site
+---
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pip install --requirement requirements.txt`
-- `python manage.py runserver`
-- Aller sur `http://localhost:8000` dans un navigateur.
-- Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
+## **Utilisation de Docker**
+L'application peut être exécutée entièrement dans des conteneurs Docker.
 
-#### Linting
+### **Construire l'image Docker**
+```bash
+docker build -t orange-county-lettings .
+```
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `flake8`
+### **Exécuter l'application avec Docker**
+```bash
+docker run -d -p 8000:8000 orange-county-lettings
+```
 
-#### Tests unitaires
+---
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pytest`
+## **Déploiement**
 
-#### Base de données
+### **Serveur WSGI avec Gunicorn**
+L'application utilise **Gunicorn** pour servir le projet Django.
 
-- `cd /path/to/Python-OC-Lettings-FR`
-- Ouvrir une session shell `sqlite3`
-- Se connecter à la base de données `.open oc-lettings-site.sqlite3`
-- Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
-- Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
-- `.quit` pour quitter
+Commandes d'exécution :
+```bash
+gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8000
+```
 
-#### Panel d'administration
+### **Proxy inversé avec Nginx**
+Le fichier de configuration Nginx (`nginx.conf`) doit être configuré pour gérer les requêtes et proxy vers Gunicorn.
 
-- Aller sur `http://localhost:8000/admin`
-- Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
+#### Exemple d'une configuration Nginx :
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
 
-### Windows
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
 
-Utilisation de PowerShell, comme ci-dessus sauf :
+    location /static/ {
+        alias /path/to/staticfiles/;
+    }
+}
+```
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
-- Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+---
+
+## **Intégration Continue**
+Le pipeline CI/CD est configuré via **GitHub Actions** pour :
+1. Exécuter les tests unitaires avec `pytest`.
+2. Effectuer un linting avec `flake8`.
+3. Construire et pousser les images Docker si les tests passent.
+
+Fichier de configuration GitHub Actions : `.github/workflows/main.yml`.
+
+---
+
+## **Documentation**
+La documentation du projet est hébergée sur **Read the Docs**. Consultez-la pour des détails supplémentaires :
+[Documentation sur Read the Docs](https://yourproject.readthedocs.io).
+
+---
+
+## **Base de Données**
+### **Utilisation avec SQLite**
+- Fichier de base de données : `oc-lettings-site.sqlite3`
+- Commandes courantes :
+  ```bash
+  sqlite3 oc-lettings-site.sqlite3
+  .tables
+  ```
+
+---
+
+## **Tests**
+### **Exécuter les tests unitaires**
+```bash
+pytest
+```
+
+### **Linting**
+```bash
+flake8
+```
+
+---
+
+## **Variables d'environnement**
+L'application utilise un fichier `.env` pour stocker les variables sensibles :
+- **SECRET_KEY** : Clé secrète Django.
+- **DATABASE_URL** : URL de connexion à la base de données.
+- **SENTRY_DSN** : DSN pour l'intégration Sentry.
+
+Exemple `.env` :
+```env
+SECRET_KEY=your-secret-key
+DATABASE_URL=sqlite:///oc-lettings-site.sqlite3
+SENTRY_DSN=https://your-sentry-dsn
+```
+
+---
+
+## **Contribuer**
+1. Forkez le repository.
+2. Créez une branche avec vos modifications :
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+3. Poussez votre branche et ouvrez une pull request.
+
+---
+
+## **Licence**
+Ce projet est sous licence [MIT](LICENSE).
