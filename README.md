@@ -1,17 +1,18 @@
 # **Orange County Lettings**
 
 ## **Résumé**
-Site web pour la gestion des locations et profils dans le comté d'Orange. Ce projet utilise Django comme base et a été amélioré avec des outils modernes pour une gestion efficace et un déploiement automatisé.
+Site web pour la gestion des locations et profils dans le comté d'Orange. Ce projet utilise Django comme base et a été amélioré avec une **architecture conteneurisée** et un **pipeline CI/CD** pour une gestion et un déploiement automatisés.
 
 ---
 
 ## **Fonctionnalités**
 - Gestion des profils et des locations.
-- Déploiement automatisé via GitHub Actions.
-- Conteneurisation avec Docker.
-- Documentation hébergée sur Read the Docs.
-- Utilisation de Gunicorn comme serveur WSGI.
-- Proxy inversé et gestion des requêtes avec Nginx.
+- Déploiement automatisé via **GitHub Actions**.
+- **Conteneurisation complète avec Docker**.
+- Documentation technique hébergée sur **Read the Docs**.
+- Utilisation de **Gunicorn** comme serveur WSGI.
+- Proxy inversé et gestion des requêtes avec **Nginx**.
+- Intégration de la surveillance des erreurs avec **Sentry**.
 
 ---
 
@@ -35,7 +36,7 @@ cd Your-Repository
 ```bash
 python -m venv venv
 source venv/bin/activate  # macOS/Linux
-.\venv\Scripts\Activate.ps1  # Windows
+.env\Scripts\Activate.ps1  # Windows
 pip install -r requirements.txt
 ```
 
@@ -48,34 +49,55 @@ Accédez au site via `http://localhost:8000`.
 ---
 
 ## **Utilisation de Docker**
-L'application peut être exécutée entièrement dans des conteneurs Docker.
 
-### **Construire l'image Docker**
+### **Construire et Exécuter avec Docker**
+L'application est entièrement conteneurisée et peut être exécutée via Docker.
+
+#### **Construire l'image Docker**
 ```bash
 docker build -t orange-county-lettings .
 ```
 
-### **Exécuter l'application avec Docker**
+#### **Exécuter l'application avec Docker**
 ```bash
 docker run -d -p 8000:8000 orange-county-lettings
 ```
 
 ---
 
+## **Pipeline CI/CD**
+
+Un pipeline **CI/CD** est configuré avec **GitHub Actions** pour automatiser les étapes suivantes :
+
+### **Étapes du pipeline :**
+1. **Build et Test :**
+   - Linting avec `flake8`.
+   - Tests unitaires avec `pytest`.
+   - Validation de la couverture des tests (minimum 80%).
+   - Création d'une image Docker de test.
+2. **Build et Push de l'image finale :**
+   - Une fois les tests réussis, une image Docker finale est créée et poussée vers Docker Hub.
+3. **Déploiement :**
+   - L'image finale est déployée sur un serveur (Droplet) avec Docker.
+   - Le conteneur en cours d'exécution est remplacé par le nouveau.
+
+### **Configuration GitHub Actions**
+Le pipeline CI/CD est défini dans `.github/workflows/main.yml`. Il inclut :
+- La configuration pour Docker Buildx.
+- Le déploiement via SSH sur un Droplet avec la commande `docker run`.
+
+---
+
 ## **Déploiement**
 
 ### **Serveur WSGI avec Gunicorn**
-L'application utilise **Gunicorn** pour servir le projet Django.
-
-Commandes d'exécution :
+L'application est servie via **Gunicorn**. Commande d'exécution :
 ```bash
 gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8000
 ```
 
 ### **Proxy inversé avec Nginx**
-Le fichier de configuration Nginx (`nginx.conf`) doit être configuré pour gérer les requêtes et proxy vers Gunicorn.
-
-#### Exemple d'une configuration Nginx :
+Exemple de configuration Nginx pour la mise en production :
 ```nginx
 server {
     listen 80;
@@ -96,30 +118,15 @@ server {
 
 ---
 
-## **Intégration Continue**
-Le pipeline CI/CD est configuré via **GitHub Actions** pour :
-1. Exécuter les tests unitaires avec `pytest`.
-2. Effectuer un linting avec `flake8`.
-3. Construire et pousser les images Docker si les tests passent.
+## **Surveillance avec Sentry**
+L'intégration de Sentry permet de surveiller les erreurs en production.
 
-Fichier de configuration GitHub Actions : `.github/workflows/main.yml`.
-
----
-
-## **Documentation**
-La documentation du projet est hébergée sur **Read the Docs**. Consultez-la pour des détails supplémentaires :
-[Documentation sur Read the Docs](https://yourproject.readthedocs.io).
-
----
-
-## **Base de Données**
-### **Utilisation avec SQLite**
-- Fichier de base de données : `oc-lettings-site.sqlite3`
-- Commandes courantes :
-  ```bash
-  sqlite3 oc-lettings-site.sqlite3
-  .tables
-  ```
+### **Configurer Sentry**
+1. Ajouter votre **DSN Sentry** dans le fichier `.env` :
+   ```env
+   SENTRY_DSN=https://your-sentry-dsn
+   ```
+2. Les exceptions non gérées apparaîtront sur votre tableau de bord Sentry.
 
 ---
 
@@ -137,10 +144,10 @@ flake8
 ---
 
 ## **Variables d'environnement**
-L'application utilise un fichier `.env` pour stocker les variables sensibles :
+L'application utilise un fichier `.env` pour les variables sensibles :
 - **SECRET_KEY** : Clé secrète Django.
 - **DATABASE_URL** : URL de connexion à la base de données.
-- **SENTRY_DSN** : DSN pour l'intégration Sentry.
+- **SENTRY_DSN** : DSN pour Sentry.
 
 Exemple `.env` :
 ```env
@@ -160,6 +167,3 @@ SENTRY_DSN=https://your-sentry-dsn
 3. Poussez votre branche et ouvrez une pull request.
 
 ---
-
-## **Licence**
-Ce projet est sous licence [MIT](LICENSE).
