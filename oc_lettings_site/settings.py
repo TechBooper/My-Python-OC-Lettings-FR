@@ -1,6 +1,5 @@
 import os
 import sentry_sdk
-import environ
 
 from pathlib import Path
 
@@ -8,9 +7,6 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 SENTRY_DSN = "https://363ee5f70808df18599767be1e64453d@o4508160623181824.ingest.de.sentry.io/4508620621086800"
-
-env = environ.Env()
-environ.Env.read_env()
 
 sentry_sdk.init(
     dsn=SENTRY_DSN,
@@ -131,7 +127,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = env("STATIC_URL", default="/static/")
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
