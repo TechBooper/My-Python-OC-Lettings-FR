@@ -1,7 +1,7 @@
 # **Orange County Lettings**
 
 ## **Résumé**
-Site web pour la gestion des locations et profils dans le comté d'Orange. Ce projet utilise Django comme base et a été amélioré avec une **architecture conteneurisée** et un **pipeline CI/CD** pour une gestion et un déploiement automatisés.
+Site web pour la gestion des locations et profils dans pour "Orange county". Ce projet utilise Django comme base et a été amélioré avec une **architecture conteneurisée** et un **pipeline CI/CD** pour une gestion et un déploiement automatisé.
 
 ---
 
