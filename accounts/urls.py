@@ -18,7 +18,6 @@ app_name = "profiles"
 urlpatterns = [
     # Routes the root URL ("profiles/") to the `index` view.
     path("", views.index, name="index"),
-
     # Routes URLs of the form ("profiles/<str:username>/") to the `profile` view.
     # The username is captured from the URL and passed to the view.
     path("<str:username>/", views.profile, name="profile"),

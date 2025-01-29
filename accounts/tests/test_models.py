@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from accounts.models import Profile
 
+
 class ProfileModelTestCase(TestCase):
     """
     Test suite for the Profile model.
@@ -12,11 +13,17 @@ class ProfileModelTestCase(TestCase):
         Set up test users and profiles for use in tests.
         """
         # Create test users
-        self.user1 = User.objects.create_user(username="testuser1", password="password123")
+        self.user1 = User.objects.create_user(
+            username="testuser1", password="password123"
+        )
         self.profile1 = Profile.objects.create(user=self.user1, favorite_city="Paris")
 
-        self.user2 = User.objects.create_user(username="testuser2", password="password123")
-        self.profile2 = Profile.objects.create(user=self.user2, favorite_city="New York")
+        self.user2 = User.objects.create_user(
+            username="testuser2", password="password123"
+        )
+        self.profile2 = Profile.objects.create(
+            user=self.user2, favorite_city="New York"
+        )
 
     # Unit Tests
     def test_profile_creation(self):

@@ -8,12 +8,13 @@ It specifies:
 
 from django.apps import AppConfig
 
+
 class AccountsConfig(AppConfig):
     """
     Configuration class for the 'accounts' application.
 
     Attributes:
-        default_auto_field (str): Specifies the type of primary key field to use 
+        default_auto_field (str): Specifies the type of primary key field to use
             for models in this app (BigAutoField).
         name (str): The official name of the application.
     """
