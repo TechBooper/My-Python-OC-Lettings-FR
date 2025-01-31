@@ -2,7 +2,7 @@ Introduction
 ============
 
 **My-Python-OC-Lettings-FR** est une application Django permettant la
-gestion de locations immobilières. Elle comprend :
+gestion de locations immobilières pour "Orange County". Elle comprend :
 
 - Une base de données SQLite (par défaut) pour stocker les informations,
 - Un front-end rendu par Django,
@@ -13,6 +13,6 @@ Objectifs
 ---------
 
 - Illustrer le fonctionnement d'une application Django conteneurisée
-- Utiliser Python 3.8 avec Gunicorn pour la partie serveur d'application
+- Utiliser Python 3.8+ avec Gunicorn pour la partie serveur d'application
 - Mettre Nginx en tant que proxy inversé pour gérer les requêtes HTTP
-- Démontrer une intégration CI/CD (GitHub Actions, etc.)
+- Démontrer une intégration CI/CD (GitHub Actions)

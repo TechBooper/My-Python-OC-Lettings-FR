@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "oc_lettings_site_doc"
+project = "oc_lettings_doc"
 copyright = "2025, 1057"
 author = "1057"
 release = "10/01/2025"
