@@ -4,8 +4,8 @@ urls.py for the 'profiles' application.
 This module defines the URL configuration for the 'profiles' app. It includes:
 
 - A root path ("") that routes to the `index` view.
-- A dynamic path ("<str:username>/") that routes to the `profile` view, 
-  passing the user's username as a string parameter.
+- A dynamic path ("<str:username>/") that routes to the `profile` view,
+passing the user's username as a string parameter.
 """
 
 from django.urls import path

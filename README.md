@@ -22,7 +22,6 @@ Site web pour la gestion des locations et profils dans pour "Orange county". Ce 
 - **Python**: Version 3.8 ou supérieure.
 - **Git**: Pour cloner le dépôt.
 - **Docker**: Pour construire et exécuter les conteneurs.
-- **SQLite**: Préinstallé sur la plupart des systèmes pour la base de données locale.
 
 ### **Installation et Exécution**
 
@@ -72,7 +71,7 @@ Un pipeline **CI/CD** est configuré avec **GitHub Actions** pour automatiser le
 ### **Étapes du pipeline :**
 1. **Build et Test :**
    - Linting avec `flake8`.
-   - Tests unitaires avec `pytest`.
+   - Tests unitaires avec `coverage`.
    - Validation de la couverture des tests (minimum 80%).
    - Création d'une image Docker de test.
 2. **Build et Push de l'image finale :**
@@ -82,7 +81,7 @@ Un pipeline **CI/CD** est configuré avec **GitHub Actions** pour automatiser le
    - Le conteneur en cours d'exécution est remplacé par le nouveau.
 
 ### **Configuration GitHub Actions**
-Le pipeline CI/CD est défini dans `.github/workflows/main.yml`. Il inclut :
+Le pipeline CI/CD est défini dans `.github/workflows/ci-cd-pipeline.yml`. Il inclut :
 - La configuration pour Docker Buildx.
 - Le déploiement via SSH sur un Droplet avec la commande `docker run`.
 
@@ -146,24 +145,10 @@ flake8
 ## **Variables d'environnement**
 L'application utilise un fichier `.env` pour les variables sensibles :
 - **SECRET_KEY** : Clé secrète Django.
-- **DATABASE_URL** : URL de connexion à la base de données.
 - **SENTRY_DSN** : DSN pour Sentry.
 
 Exemple `.env` :
 ```env
 SECRET_KEY=your-secret-key
-DATABASE_URL=sqlite:///oc-lettings-site.sqlite3
 SENTRY_DSN=https://your-sentry-dsn
 ```
-
----
-
-## **Contribuer**
-1. Forkez le repository.
-2. Créez une branche avec vos modifications :
-   ```bash
-   git checkout -b feature/your-feature
-   ```
-3. Poussez votre branche et ouvrez une pull request.
-
----

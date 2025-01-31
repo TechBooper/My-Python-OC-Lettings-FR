@@ -1,7 +1,7 @@
 """
 views.py for the 'profiles' application.
 
-This module contains view functions responsible for handling requests 
+This module contains view functions responsible for handling requests
 related to user profiles, including:
 
 - The `index` view: Renders the main landing page for profiles.
@@ -10,7 +10,6 @@ related to user profiles, including:
 
 from django.shortcuts import get_object_or_404, render
 from .models import Profile
-from django.http import HttpResponse
 
 
 def index(request):
