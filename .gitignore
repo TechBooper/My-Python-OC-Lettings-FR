@@ -1,0 +1,15 @@
+# Environment variables
+.env
+.yml
+
+# Coverage reports
+.coverage
+htmlcov/
+
+# Pipelines and configs
+Dockerfile
+nginx.conf
+
+# IDE settings
+.vscode/
+.pytest_cache/
