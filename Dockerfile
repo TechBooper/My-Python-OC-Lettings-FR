@@ -23,7 +23,9 @@ COPY . .
 RUN python manage.py collectstatic --noinput
 
 # Configure Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
+RUN rm /etc/nginx/conf.d/default.conf
+
 
 # Expose the Gunicorn port
 EXPOSE 8000
