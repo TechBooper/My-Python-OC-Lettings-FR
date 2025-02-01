@@ -1,0 +1,5 @@
+{
+  "accounts/tests/test_models.py": true,
+  "accounts/tests/test_views.py": true,
+  "property_lettings/tests/test_models.py": true
+}
